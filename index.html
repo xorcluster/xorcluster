@@ -1,0 +1,58 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+        <link rel="stylesheet" href="style.css">
+        <link rel="shortcut icon" href="assets/favicon.png">
+        <title> xorcluster</title>
+    </head>
+
+    <body>
+        <div class="title" style="text-align: center; align-self: center;"> xorcluster </div>
+        <div id="introduction" class="box" style="background-color: hsl(0deg, 100%, 50%); border: 1px solid transparent; border-radius: 128px; text-align: center; align-items: center; justify-content: center; position: absolute; font: 24px IBM-VGA-8x16; left: 5rem; top: 5rem; width: 256px; height: 256px">
+            <div>
+                Hello, I am xorcluster!
+            </div>
+        </div>
+
+        <div id="blastmania" class="box" style="background-color: hsl(0deg, 100%, 50%); border: 1px solid transparent; border-radius: 128px; text-align: center; align-items: center; justify-content: center; position: absolute; font: 24px IBM-VGA-8x16; left: 60rem; top: 12.5rem; width: 256px; height: 256px">
+            <img src="assets/favicon.png"></img>
+        </div>
+    </body>
+
+    <script>
+        const rate = 1000 / 1.0;
+
+        const box = document.getElementById("introduction");
+        const bm = document.getElementById("blastmania");
+        let bmspin = 0;
+
+        box.style.transitionTimingFunction = "ease-out";
+        box.style.transitionDuration = `${rate}ms`;
+        bm.style.transitionTimingFunction = "linear";
+        bm.style.transitionDuration = `${rate}ms`;
+
+        let last = 0;
+
+        function update() {
+            box.style.backgroundColor = `hsl(${performance.now()}turn, 100%, 50%, ${Math.round(Math.random() * 25)}%)`;
+            box.style.transform = `perspective(192px)
+                                    scale3d(100%,100%,100%)
+                                    translate3d(0px,0px,0px)
+                                    rotate3d(${Math.random() * 10},${Math.random() * 10},${Math.random() * 10},${performance.now() - last}turn)`
+
+            bm.style.backgroundColor = `hsl(${performance.now()}turn, 100%, 50%, ${Math.round(Math.random() * 25)}%)`;
+            bm.style.transform = `perspective(192px)
+                                    scale3d(100%,100%,100%)
+                                    rotate3d(1,0,0,${0.1}turn)
+                                    rotate3d(0,0,1,${bmspin}deg)`
+            bmspin += 405;
+
+            last = performance.now();
+        }
+
+        update();
+        setInterval(() => {
+            update();
+        }, rate);
+    </script>
+</html>
